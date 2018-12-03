@@ -34,7 +34,11 @@ def solve(user):
 		for it in benb:
 			this = {}
 			counter += 1
-			_tmp, this['date'], this['time'] = it.header.div.text.split()
+			_tmp = it.header.div.text.split()
+			if len(_tmp) == 3:
+				_tmp, this['date'], this['time'] = _tmp
+			else:
+				_tmp1, _tmp2, this['date'], this['time'] = _tmp
 			this['html'] = str(it.find_all(class_="am-comment-bd")[0].span)[27:-7]
 			this['markdown'] = html2text.html2text(this['html'])[:-2]
 			with open(filename.format(
